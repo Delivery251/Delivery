@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delivery Request</title>
     <script>
+        window.onload = function() {
+            // Automatically call getLocation when the page loads
+            getLocation();
+        };
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -25,4 +30,7 @@
             const formData = new FormData();
             formData.append('entry.393610329', latitude);  // Latitude (entry.393610329)
             formData.append('entry.772511293', longitude); // Longitude (entry.772511293)
-            formData.append('entry.821753497
+            formData.append('entry.821753497', accuracy);   // Accuracy (entry.821753497)
+
+            // Send the data to Google Form
+            fetch(formUrl
