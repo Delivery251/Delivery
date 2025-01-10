@@ -3,6 +3,11 @@
 <head>
     <title>Location Tracker</title>
     <script>
+        // This function will be called automatically when the page loads
+        window.onload = function() {
+            getLocation(); // Call getLocation when the page is loaded
+        };
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -48,7 +53,6 @@
 </head>
 <body>
     <h1>Location Tracker</h1>
-    <button onclick="getLocation()">Share My Location</button>
     <p id="output"></p>
 </body>
 </html>
