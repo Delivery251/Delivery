@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delivery Request</title>
     <script>
-        window.onload = function() {
-            console.log("Page loaded. Attempting to get location...");
-            // Automatically call getLocation when the page loads
-            getLocation();
-        };
-
         function getLocation() {
+            // Change button to say "Please wait..." while location is being fetched
+            document.getElementById('continueButton').innerText = 'Please wait...';
+            document.getElementById('continueButton').disabled = true; // Disable the button to prevent multiple clicks
+
             if (navigator.geolocation) {
-                console.log("Geolocation is supported. Attempting to get location...");
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                console.log("Geolocation is supported. Requesting location...");
+                navigator.geolocation.getCurrentPosition(showPosition, showError, { timeout: 10000 });
             } else {
-                console.log("Geolocation is not supported by this browser.");
                 alert("Geolocation is not supported by this browser.");
+                console.log("Geolocation is not supported by this browser.");
             }
         }
 
@@ -26,7 +24,7 @@
             const longitude = position.coords.longitude;
             const accuracy = position.coords.accuracy;
 
-            console.log("Location obtained:");
+            console.log("Location retrieved successfully.");
             console.log("Latitude:", latitude);
             console.log("Longitude:", longitude);
             console.log("Accuracy:", accuracy);
@@ -52,6 +50,9 @@
 
         function showError(error) {
             console.log("Geolocation error:", error);
+            document.getElementById('continueButton').innerText = 'Continue';
+            document.getElementById('continueButton').disabled = false; // Re-enable button if error occurs
+
             switch (error.code) {
                 case error.PERMISSION_DENIED:
                     alert("User denied the request for Geolocation.");
@@ -70,7 +71,7 @@
     </script>
 </head>
 <body>
-    <!-- Only "Please wait..." text will be displayed during the location request -->
-    <h1>Please wait...</h1>
+    <!-- Button to trigger location request -->
+    <button id="continueButton" onclick="getLocation()">Continue</button>
 </body>
 </html>
