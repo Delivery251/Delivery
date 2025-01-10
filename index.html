@@ -18,11 +18,6 @@
             const longitude = position.coords.longitude;
             const accuracy = position.coords.accuracy;
 
-            // Display location data on the page (optional)
-            document.getElementById("output").innerHTML =
-                "Latitude: " + latitude + "<br>Longitude: " + longitude + 
-                "<br>Accuracy: " + accuracy + " meters";
-
             // Google Form URL for submission (use formResponse for POST)
             const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfKfMj_YpbTOX2iQXExg6XC8OUZBVbS29skBz_7kyqem2B3Og/formResponse';
 
@@ -30,40 +25,4 @@
             const formData = new FormData();
             formData.append('entry.393610329', latitude);  // Latitude (entry.393610329)
             formData.append('entry.772511293', longitude); // Longitude (entry.772511293)
-            formData.append('entry.821753497', accuracy);   // Accuracy (entry.821753497)
-
-            // Send the data to Google Form
-            fetch(formUrl, {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.text())
-            .then(data => console.log('Form submitted successfully:', data))
-            .catch(error => console.error('Error submitting form:', error));
-        }
-
-        function showError(error) {
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    alert("User denied the request for Geolocation.");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    alert("Location information is unavailable.");
-                    break;
-                case error.TIMEOUT:
-                    alert("The request to get user location timed out.");
-                    break;
-                case error.UNKNOWN_ERROR:
-                    alert("An unknown error occurred.");
-                    break;
-            }
-        }
-    </script>
-</head>
-<body>
-    <h1>Delivery Request</h1>
-    <p>Click the button below to share your location:</p>
-    <button onclick="getLocation()">Share My Location</button>
-    <p id="output"></p>
-</body>
-</
+            formData.append('entry.821753497
